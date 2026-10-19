@@ -1,4 +1,5 @@
 import { Divider, List, Typography, Button } from 'antd';
+import { API_URL } from '../api'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,7 @@ const Home = (getFormData) => {
     getFormData = getFormData.getFormData
 
     const getData = async () => {
-        await axios.get('https://mentoringtoolserver.onrender.com/students-info')
+        await axios.get(`${API_URL}/students-info`)
             .then((response) => {
                 setData(response.data)
             })
@@ -29,11 +30,11 @@ const Home = (getFormData) => {
             name: item,
             id: localStorage.getItem('mentorID')
         }
-        await axios.post('https://mentoringtoolserver.onrender.com/new-mentor', item).then(getData())
+        await axios.post(`${API_URL}/new-mentor`, item).then(getData())
     }
 
     const onDeleteClick = async (item) => {
-        await axios.post('https://mentoringtoolserver.onrender.com/delete-menti', { item }).then(getData())
+        await axios.post(`${API_URL}/delete-menti`, { item }).then(getData())
     }
 
     return (

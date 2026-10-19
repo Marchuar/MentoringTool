@@ -3,6 +3,7 @@ import Home from './pages/HomePage'
 import Login from './pages/LoginPage'
 import Form from "./pages/FormPage.jsx";
 import { useState } from "react";
+import { API_URL } from './api'
 import axios from "axios";
 
 const App = () => {
@@ -10,7 +11,7 @@ const App = () => {
 
   const getFormData = async (item) => {
     await axios
-      .post('https://mentoringtoolserver.onrender.com/form-id', { item })
+      .post(`${API_URL}/form-id`, { item })
       .then((response) => {
         console.log(response)
         setFormData(response)

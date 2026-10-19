@@ -1,5 +1,6 @@
 import { Button, Form, Input, message } from 'antd';
 import classes from './Login.module.css'
+import { API_URL } from '../api'
 import axios from 'axios'
 
 
@@ -10,11 +11,11 @@ const Login = () => {
     const onFinish = (values) => {
         console.log('Success:', values);
         axios
-            .post('https://mentoringtoolserver.onrender.com/login', values)
+            .post(`${API_URL}/login`, values)
             .then(async (response) => {
                 response = response.data
                 await localStorage.setItem('mentorID', response);
-                location.href = 'https://mentoringtoolclient.onrender.com/home'
+                location.href = '/home'
             })
             .catch((error) => {
                 messageApi.open({
