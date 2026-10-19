@@ -12,6 +12,9 @@ const formId = async (request, response, client) => {
         })
         .toArray();
 
+    if (!menti.length) {
+        return response.status(404).json({ message: "Menti not found" });
+    }
     const formIdData = menti[0].form;
 
     const formData = await formCollection

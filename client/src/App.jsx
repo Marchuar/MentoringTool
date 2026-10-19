@@ -14,6 +14,7 @@ const App = () => {
       .post(`${API_URL}/form-id`, { item })
       .then((response) => {
         console.log(response)
+        localStorage.setItem('formID', response.data._id)
         setFormData(response)
       })
   }

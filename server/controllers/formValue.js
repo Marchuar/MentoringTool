@@ -5,6 +5,9 @@ const formValue = async (request, response, client) => {
     const db = client.db("MentoringTool");
     const formCollection = db.collection("forms");
 
+    if (!ObjectId.isValid(request.body.formID)) {
+        return response.status(400).json({ message: "Invalid form id" });
+    }
     const formValue = await formCollection
         .find({ _id: new ObjectId(request.body.formID) })
         .toArray();

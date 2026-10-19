@@ -13,22 +13,26 @@ const Form = (formData) => {
             .then((response) => {
                 setFormValue(response.data.formValue)
             })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     useEffect(() => {
         if (!formData.formData.data) {
             let formID = localStorage.getItem('formID')
             console.log(formID)
-            getData(formID)
+            if (formID) {
+                getData(formID)
+            }
         } else {
             setFormValue(formData.formData.data.formValue)
-            localStorage.setItem('formID', formData.formData.data._id)
         }
     }, [formData])
 
     //formValue = all information(title, datatype, note, value)
 
-    if (formValue == false) {
+    if (!formValue) {
         console.log('formValue is empty')
     } else {
         return (

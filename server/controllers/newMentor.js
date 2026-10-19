@@ -9,6 +9,7 @@ const newMentor = async (request, response, client) => {
         },
         { $set: { assignedTo: request.body.id } }
     );
+    response.json({ ok: true });
 };
 
 module.exports = newMentor;

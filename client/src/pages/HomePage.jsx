@@ -2,12 +2,13 @@ import { Divider, List, Typography, Button } from 'antd';
 import { API_URL } from '../api'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import classes from './Home.module.css'
 
 
 const Home = (getFormData) => {
     const [data, setData] = useState([])
+    const navigate = useNavigate()
 
     getFormData = getFormData.getFormData
 
@@ -30,11 +31,16 @@ const Home = (getFormData) => {
             name: item,
             id: localStorage.getItem('mentorID')
         }
-        await axios.post(`${API_URL}/new-mentor`, item).then(getData())
+        await axios.post(`${API_URL}/new-mentor`, item).then(() => getData())
+    }
+
+    const onFormClick = async (item) => {
+        await getFormData(item)
+        navigate('/form')
     }
 
     const onDeleteClick = async (item) => {
-        await axios.post(`${API_URL}/delete-menti`, { item }).then(getData())
+        await axios.post(`${API_URL}/delete-menti`, { item }).then(() => getData())
     }
 
     return (
@@ -61,7 +67,7 @@ const Home = (getFormData) => {
                                 <List.Item>
                                     <Typography.Text mark>[MENTI]</Typography.Text> {item}
                                     <Button onClick={() => onDeleteClick(item)} className={classes.deleteButton}>Delete Menti</Button>
-                                    <Link to="/form" params={{ testvalue: "hello" }}><Button className={classes.formButton} onClick={() => getFormData(item)}>Check Form</Button></Link>
+                                    <Button className={classes.formButton} onClick={() => onFormClick(item)}>Check Form</Button>
                                 </List.Item>
                             )
                         } else {

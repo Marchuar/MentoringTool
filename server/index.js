@@ -29,28 +29,33 @@ async function run() {
 }
 run().catch(console.error);
 
+const handleError = (err, response) => {
+    console.log(err);
+    response.status(500).json({ message: "Server error" });
+};
+
 app.post("/login", (request, response) => {
-    login(request, response, client);
+    login(request, response, client).catch((err) => handleError(err, response));
 });
 
 app.post("/new-mentor", (request, response) => {
-    newMentor(request, response, client);
+    newMentor(request, response, client).catch((err) => handleError(err, response));
 });
 
 app.post("/delete-menti", (request, response) => {
-    deleteMenti(request, response, client);
+    deleteMenti(request, response, client).catch((err) => handleError(err, response));
 });
 
 app.get("/students-info", (request, response) => {
-    students(request, response, client);
+    students(request, response, client).catch((err) => handleError(err, response));
 });
 
 app.post("/form-id", (request, response) => {
-    formId(request, response, client);
+    formId(request, response, client).catch((err) => handleError(err, response));
 });
 
 app.post("/form-value", (request, response) => {
-    formValue(request, response, client);
+    formValue(request, response, client).catch((err) => handleError(err, response));
 });
 
 app.listen(PORT, () => {

@@ -9,6 +9,7 @@ const deleteMenti = async (request, response, client) => {
         },
         { $set: { assignedTo: "" } }
     );
+    response.json({ ok: true });
 };
 
 module.exports = deleteMenti;
